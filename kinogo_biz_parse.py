@@ -30,17 +30,21 @@ def get_film_list():
             film_info_text = film_info.get_text(strip=True) if film_info else ""
             film_description_text = film_description.get_text(strip=True) if film_description else ""
 
-            if film_poster and film_poster.img and film_poster.img.get('src') != '/templates/Kinogo/images/clear-shortstory.gif':
-                film_poster_src = film_poster.img.get('src')
+            if film_poster:
+                poster_href = film_poster.a['href']
+                poster_response = requests.get(url=poster_href, verify=False)
+                poster_soup = BeautifulSoup(poster_response.text, 'html.parser')
+                main_poster = poster_soup.find('div', {'class': 'main__poster'})
+                film_poster_src = main_poster
             else:
-                film_poster_src = "No poster available"
+                print('no poster')
 
             film_list.append({
                 'url': film_url_href,
                 'name': film_name_text,
                 'info': film_info_text,
                 'description': film_description_text,
-                'poster': film_poster_src
+                'poster': 'https://kinogo.biz/'+film_poster_src.img.get('src')
             })
 
             print(
@@ -48,7 +52,7 @@ def get_film_list():
                 film_name_text,
                 film_info_text,
                 film_description_text,
-                film_poster_src
+                # film_poster_src
             )
     return film_list
 

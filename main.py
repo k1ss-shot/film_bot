@@ -22,7 +22,8 @@ def send_bot_message(chat_id, film_list):
         text =  f'`Название`: {film["name"]}\n'\
                 f'{film["info"]}\n'\
                 f'`Описание`: {film["description"]}\n'\
-                f'[-------------------------------]{film["poster"]}'
+                f'[-------------------------------]({film["poster"]})'
+    
 
         keyboard = types.InlineKeyboardMarkup()
         buttom_watch = types.InlineKeyboardButton(text='смотреть', url=film["url"])
