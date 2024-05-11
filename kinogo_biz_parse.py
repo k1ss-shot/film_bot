@@ -51,8 +51,7 @@ def get_film_list():
                 film_url_href,
                 film_name_text,
                 film_info_text,
-                film_description_text,
-                # film_poster_src
+                film_description_text
             )
     return film_list
 
